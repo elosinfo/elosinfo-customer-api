@@ -1,5 +1,6 @@
 package com.elosinfo.customerapi.service;
 
+import com.elosinfo.customerapi.dto.CustomerDto;
 import com.elosinfo.customerapi.entity.CustomerEntity;
 
 import javax.management.InstanceNotFoundException;
@@ -11,9 +12,9 @@ public interface ICustomerService {
 
     public Optional<CustomerEntity> getById(Long id);
 
-    public void create(CustomerEntity customer);
+    public void create(CustomerDto customerDto);
 
-    public void update(Long id, CustomerEntity customer);
+    public void update(Long id, CustomerDto customerDto);
 
     public void delete(Long id);
 }

@@ -1,5 +1,6 @@
 package com.elosinfo.customerapi.controller;
 
+import com.elosinfo.customerapi.dto.CustomerDto;
 import com.elosinfo.customerapi.entity.CustomerEntity;
 import com.elosinfo.customerapi.repository.ICustomerRepository;
 import com.elosinfo.customerapi.service.ICustomerService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.management.InstanceNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +18,6 @@ import java.util.Optional;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    @Autowired
-    private ICustomerRepository repository;
     @Autowired
     private ICustomerService customerService;
 
@@ -36,15 +36,15 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Boolean> create(@RequestBody CustomerEntity customerEntity){
-        customerService.create(customerEntity);
+    public ResponseEntity<Boolean> create(@RequestBody @Valid CustomerDto customerDto){
+        this.customerService.create(customerDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(true);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Boolean> update(@PathVariable Long id, @RequestBody CustomerEntity customerEntity){
-        this.customerService.update(id, customerEntity);
+    public ResponseEntity<Boolean> update(@PathVariable Long id, @RequestBody @Valid CustomerDto customerDto){
+        this.customerService.update(id, customerDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(true);
     }
